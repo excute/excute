@@ -1,0 +1,1 @@
+New-Item -ItemType HardLink -Path $env:USERPROFILE\.config\starship.toml -Target .\starship.toml
