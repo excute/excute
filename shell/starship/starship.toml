@@ -85,12 +85,14 @@ disabled = false
 
 [os.symbols]
 Windows = " "
+Ubuntu = " "
 
 
 # shell
 [shell]
 disabled = false
 powershell_indicator = " "
+zsh_indicator = "zsh "
 format = "$indicator"
 
 
