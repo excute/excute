@@ -1,61 +1,79 @@
-# # Set up the prompt
+# zsh settings
 
+## default prompt initialization
 # autoload -Uz promptinit
 # promptinit
 # prompt adam1
 
-# setopt histignorealldups sharehistory
+## History
+### Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
 
-# # Use emacs keybindings even if our EDITOR is set to vi
-# bindkey -e
+setopt histignorealldups sharehistory
 
-# # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-# HISTSIZE=1000
-# SAVEHIST=1000
-# HISTFILE=~/.zsh_history
+## Key bindings
+### Use emacs keybindings even if our EDITOR is set to vi
+bindkey -e
 
-# # Use modern completion system
-# autoload -Uz compinit
-# compinit
+### Ctrl bindings
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+bindkey '^H' backward-delete-word
 
-# zstyle ':completion:*' auto-description 'specify: %d'
-# zstyle ':completion:*' completer _expand _complete _correct _approximate
-# zstyle ':completion:*' format 'Completing %d'
-# zstyle ':completion:*' group-name ''
-# zstyle ':completion:*' menu select=2
-# eval "$(dircolors -b)"
-# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-# zstyle ':completion:*' list-colors ''
-# zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-# zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-# zstyle ':completion:*' menu select=long
-# zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-# zstyle ':completion:*' use-compctl false
-# zstyle ':completion:*' verbose true
 
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-# zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+# Colors
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+
+# ZSH plugins
+## zsh-autosuggestions
+source ~/.zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+## zsh-completions
+fpath=($HOME/.zsh_plugins/zsh-completions/src $fpath)
+
+## zsh-syntax-highlighting
+source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 
 # Repo
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+
 # Starship
 eval "$(starship init zsh)"
+
 
 # Tools
 ## eza
 alias ls="eza"
 alias ll="eza -l"
 alias la="eza -la"
-alias lt="eza -T -L 5"
+alias lt="eza -T -L 3"
+
 
 # Completions
 ## brew
 if type brew &>/dev/null; then
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-    autoload -Uz compinit
-    compinit
 fi
 
 ## starship
@@ -66,3 +84,8 @@ velero completion zsh >"${fpath[1]}/_velero"
 
 ## kind
 kind completion zsh >"${fpath[1]}/_kind"
+
+
+# Use modern completion system
+autoload -Uz compinit
+compinit
