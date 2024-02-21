@@ -59,15 +59,19 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 
 # Starship
-eval "$(starship init zsh)"
+if type starship &>/dev/null; then
+    eval "$(starship init zsh)"
+fi
 
 
 # Tools
 ## eza
+if type eza &>/dev/null; then
 alias ls="eza"
 alias ll="eza -l"
 alias la="eza -la"
 alias lt="eza -T -L 3"
+fi
 
 
 # Completions
@@ -77,13 +81,24 @@ if type brew &>/dev/null; then
 fi
 
 ## starship
-source <(starship completions zsh)
+if type starship &>/dev/null; then
+    source <(starship completions zsh)
+fi
 
 ## velero
-velero completion zsh >"${fpath[1]}/_velero"
+if type velero &>/dev/null; then
+    velero completion zsh >"${fpath[1]}/_velero"
+fi
 
 ## kind
-kind completion zsh >"${fpath[1]}/_kind"
+if type kind &>/dev/null; then
+    kind completion zsh >"${fpath[1]}/_kind"
+fi
+
+## helm
+if type helm &>/dev/null; then
+    helm completion zsh > "${fpath[1]}/_helm"
+fi
 
 
 # Use modern completion system
