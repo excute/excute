@@ -26,7 +26,7 @@
 # 1: (fg:#090c0c bg:#a3aed2)
 # 2: (fg:#e3e5e5 bg:#769ff0)
 # 3: (fg:#769ff0 bg:#394260)
-# 4: (fg:#769ff0 bg:#212736)
+# 4: (fg:#769ff0 bg:#212736) 
 # 5: (fg:#a0a9cb bg:#1d2230)
 
 
@@ -143,6 +143,10 @@ disabled = false
 always_show_remote = false
 symbol = " "
 format = "$symbol$branch(:$remote_branch)"
+
+[git_commit]
+disabled = false
+format = "[\\($hash$tag\\)]($style) "
 
 [git_status]
 disabled = false
