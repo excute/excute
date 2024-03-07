@@ -144,25 +144,21 @@ always_show_remote = false
 symbol = " "
 format = "$symbol$branch(:$remote_branch)"
 
-[git_commit]
-disabled = false
-format = "[\\($hash$tag\\)]($style) "
-
 [git_status]
 disabled = false
-conflicted = "=$count "
-ahead = "⇡$count "
-behind = "⇣$count "
-diverged = "⇡$ahead_count ⇣behind_count "
-up_to_date = " "
-untracked = "? "
-stashed = "\\$ "
-modified = "! "
-staged = "+ "
-renamed = "» "
-deleted = " "
-typechanged = " "
-format = "\\[$all_status$ahead_behind\\] "
+conflicted = "\\[= $count\\]"
+ahead = "\\[󰞘 $count\\]"
+behind = "\\[󰞗 $count\\]"
+diverged = "\\[$behind_count 󰞗 󰞘 $ahead_count\\]"
+up_to_date = "\\[ \\]"
+untracked = "\\[? $count\\]"
+stashed = "\\[ $count\\]"
+modified = "\\[ $count\\]"
+staged = "\\[+ $count\\]"
+renamed = "\\[» $count\\]"
+deleted = "\\[ $count\\]"
+typechanged = "\\[ \\]"
+format = "$all_status$ahead_behind"
 
 [git_metrics]
 

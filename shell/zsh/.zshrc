@@ -71,6 +71,7 @@ alias ls="eza"
 alias ll="eza -l"
 alias la="eza -la"
 alias lt="eza -T -L 3"
+alias tree="eza -T"
 fi
 
 
