@@ -43,6 +43,7 @@ format = """
 
 [( $git_branch)](fg:#769ff0 bg:#212736)\
 [( $git_status)](fg:#769ff0 bg:#212736)\
+[( $git_metrics)](fg:#769ff0 bg:#212736)\
 [](fg:#212736 bg:#1d2230)\
 
 [( $nodejs)](fg:#a0a9cb bg:#1d2230)\
@@ -157,10 +158,15 @@ modified = "\\[ $count\\]"
 staged = "\\[ $count\\]"
 renamed = "\\[» $count\\]"
 deleted = "\\[ $count\\]"
-typechanged = "\\[ \\]"
+typechanged = "\\[ $count\\]"
 format = "$all_status$ahead_behind"
 
 [git_metrics]
+disabled = false
+format = "(+$added)( -$deleted)"
+
+[git_state]
+disabled = false
 
 
 # Program specific
@@ -181,7 +187,7 @@ format = "$symbol( $version)"
 symbol = " "
 # style = "bg:#212736"
 # format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
-format = "$symbol( $version)"
+format = "$symbol( $version)(:$mod_version)"
 
 [php]
 symbol = " "
