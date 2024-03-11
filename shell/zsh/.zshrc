@@ -82,6 +82,12 @@ export PATH=/home/oys/go/bin:$PATH
 export GOROOT_LATEST=/usr/local/go
 export GOROOT_1_19_13=/home/oys/sdk/go1.19.13
 
+## NodeJS
+### NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 # Completions
 ## brew
