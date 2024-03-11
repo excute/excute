@@ -35,15 +35,17 @@ format = """
 [ $os$shell$sudo](bg:#a3aed2 fg:#090c0c)\
 [](bg:#769ff0 fg:#a3aed2)\
 
-[ $username @ $hostname ](fg:#e3e5e5 bg:#769ff0)\
+[ $username $hostname ](fg:#e3e5e5 bg:#769ff0)\
 [](fg:#769ff0 bg:#394260)\
 
 [ $directory](fg:#769ff0 bg:#394260)\
 [](fg:#394260 bg:#212736)\
 
+[( $git_commit)](fg:#769ff0 bg:#212736)\
 [( $git_branch)](fg:#769ff0 bg:#212736)\
 [( $git_status)](fg:#769ff0 bg:#212736)\
 [( $git_metrics)](fg:#769ff0 bg:#212736)\
+[( $git_state)](fg:#769ff0 bg:#212736)\
 [](fg:#212736 bg:#1d2230)\
 
 [( $nodejs)](fg:#a0a9cb bg:#1d2230)\
@@ -108,7 +110,7 @@ format = "$symbol"
 [username]
 disabled = false
 show_always = true
-format = "$user"
+format = " $user"
 
 
 # hostname
@@ -117,7 +119,7 @@ disabled = false
 ssh_only = false
 ssh_symbol = "󰢩 "
 trim_at = ""
-format = "$ssh_symbol$hostname"
+format = "$ssh_symbol $hostname"
 
 
 # Directory
@@ -129,7 +131,7 @@ read_only = " "
 read_only_style = "fg: red"
 truncation_symbol = "…/"
 fish_style_pwd_dir_length = 3
-format = "$path [($read_only)]($read_only_style)"
+format = " $path [($read_only)]($read_only_style)"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -139,6 +141,12 @@ format = "$path [($read_only)]($read_only_style)"
 
 
 # Git
+[git_commit]
+disabled = false
+tag_disabled = false
+tag_symbol = " "
+format = " $hash$tag"
+
 [git_branch]
 disabled = false
 always_show_remote = false
@@ -167,6 +175,8 @@ format = "(+$added)( -$deleted)"
 
 [git_state]
 disabled = false
+format = "\\([$state( $progress_current/$progress_total)]($style)\\) "
+# format = "hey"
 
 
 # Program specific
@@ -221,7 +231,7 @@ format = "$symbol$ram_pct"
 disabled = false
 use_12hr = false
 time_format = "%T" # Hour:Minute Format
-format = ' $time'
+format = ' $time'
 
 
 # Battery
