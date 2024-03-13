@@ -8,4 +8,4 @@ if [ -f $HOME/.zshrc ]; then
 fi
 
 # link zshrc
-ln -s ./.zshrc $HOME/.zshrc
+ln -s $(pwd)/.zshrc $HOME/.zshrc
