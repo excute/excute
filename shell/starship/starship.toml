@@ -1,0 +1,265 @@
+# Reference: https://starship.rs/config/
+# Nerd font symbol reference: https://www.nerdfonts.com/cheat-sheet
+
+# Style list
+# format = """
+# [bold ](bold)
+# [italic ](italic)
+# [underline ](underline)
+# [dimmed ](dimmed)
+# [inverted ](inverted)
+# [blink ](blink)
+# [hidden ](hidden)
+# [strikethrough ](strikethrough)
+# """
+
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+
+# Symbols
+# nf-pl-(left/right)_hard_divider: , 
+
+
+# Tokyo night color levels
+# 1: (fg:#090c0c bg:#a3aed2)
+# 2: (fg:#e3e5e5 bg:#769ff0)
+# 3: (fg:#769ff0 bg:#394260)
+# 4: (fg:#769ff0 bg:#212736) 
+# 5: (fg:#a0a9cb bg:#1d2230)
+
+
+# Global format, from Tokyo night
+format = """
+[ $os$shell$sudo](bg:#a3aed2 fg:#090c0c)\
+[](bg:#769ff0 fg:#a3aed2)\
+
+[ $username $hostname ](fg:#e3e5e5 bg:#769ff0)\
+[](fg:#769ff0 bg:#394260)\
+
+[ $directory](fg:#769ff0 bg:#394260)\
+[](fg:#394260 bg:#212736)\
+
+[( $git_commit)](fg:#769ff0 bg:#212736)\
+[( $git_branch)](fg:#769ff0 bg:#212736)\
+[( $git_status)](fg:#769ff0 bg:#212736)\
+[( $git_metrics)](fg:#769ff0 bg:#212736)\
+[( $git_state)](fg:#769ff0 bg:#212736)\
+[](fg:#212736 bg:#1d2230)\
+
+[( $nodejs)](fg:#a0a9cb bg:#1d2230)\
+[( $rust)](fg:#a0a9cb bg:#1d2230)\
+[( $golang)](fg:#a0a9cb bg:#1d2230)\
+[( $php)](fg:#a0a9cb bg:#1d2230)\
+[](fg:#1d2230)\
+
+$fill\
+
+[](fg:#1d2230)\
+[( $status)](fg:#a0a9cb bg:#1d2230)\
+
+[](fg:#212736 bg:#1d2230)\
+[ $time ](fg:#769ff0 bg:#212736)\
+
+[](fg:#394260 bg:#212736)\
+[ $memory_usage ](fg:#769ff0 bg:#394260)\
+
+[](fg:#769ff0 bg:#394260)\
+[ $battery ](fg:#e3e5e5 bg:#769ff0)\
+
+\n$character"""
+
+
+# Continuation prompt
+continuation_prompt = '▶▶ '
+
+# Fill space
+[fill]
+symbol = ""
+style = "bold black"
+disabled = false
+
+
+# OS
+[os]
+format = "$symbol"
+disabled = false
+
+[os.symbols]
+Windows = " "
+Ubuntu = " "
+
+
+# shell
+[shell]
+disabled = false
+powershell_indicator = " "
+zsh_indicator = "zsh "
+format = "$indicator"
+
+
+# sudo 
+[sudo]
+disabled = false
+symbol = "󰖵 "
+format = "$symbol"
+
+
+# Username
+[username]
+disabled = false
+show_always = true
+format = " $user"
+
+
+# hostname
+[hostname]
+disabled = false
+ssh_only = false
+ssh_symbol = "󰢩 "
+trim_at = ""
+format = "$ssh_symbol $hostname"
+
+
+# Directory
+[directory]
+disabled = false
+truncation_length = 3
+truncate_to_repo = false
+read_only = " "
+read_only_style = "fg: red"
+truncation_symbol = "…/"
+fish_style_pwd_dir_length = 3
+format = " $path [($read_only)]($read_only_style)"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+
+# Git
+[git_commit]
+disabled = false
+tag_disabled = false
+tag_symbol = " "
+format = " $hash$tag"
+
+[git_branch]
+disabled = false
+always_show_remote = false
+symbol = " "
+format = "$symbol$branch(:$remote_branch)"
+
+[git_status]
+disabled = false
+conflicted = "\\[= $count\\]"
+ahead = "\\[󰞘 $count\\]"
+behind = "\\[󰞗 $count\\]"
+diverged = "\\[$behind_count 󰞗 󰞘 $ahead_count\\]"
+up_to_date = "\\[ \\]"
+untracked = "\\[? $count\\]"
+stashed = "\\[ $count\\]"
+modified = "\\[ $count\\]"
+staged = "\\[ $count\\]"
+renamed = "\\[» $count\\]"
+deleted = "\\[ $count\\]"
+typechanged = "\\[ $count\\]"
+format = "$all_status$ahead_behind"
+
+[git_metrics]
+disabled = false
+format = "(+$added)( -$deleted)"
+
+[git_state]
+disabled = false
+format = "\\([$state( $progress_current/$progress_total)]($style)\\) "
+# format = "hey"
+
+
+# Program specific
+[nodejs]
+symbol = " "
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+format = "$symbol( $version)"
+
+[rust]
+symbol = " "
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+format = "$symbol( $version)"
+
+[golang]
+# symbol = " "
+symbol = " "
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+format = "$symbol( $version)(:$mod_version)"
+
+[php]
+symbol = " "
+# style = "bg:#212736"
+# format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+format = "$symbol( $version)"
+
+
+# status
+[status]
+disabled = false
+symbol = " "
+# success_symbol = " "
+not_executable_symbol = " "
+not_found_symbol = " "
+sigint_symbol = " "
+signal_symbol = " "
+format = "$symbol$common_meaning$signal_name"
+
+
+# memory
+[memory_usage]
+disabled = false
+threshold = 0
+symbol = " "
+format = "$symbol$ram_pct"
+
+
+# Time
+[time]
+disabled = false
+use_12hr = false
+time_format = "%T" # Hour:Minute Format
+format = ' $time'
+
+
+# Battery
+[battery]
+disabled = false
+full_symbol = " "
+charging_symbol = "󱐋 "
+discharging_symbol = ""
+unknown_symbol = " "
+empty_symbol = " "
+format = "$symbol"
+
+[[battery.display]]
+threshold = 100
+charging_symbol = "󱐋  "
+discharging_symbol = " "
+
+[[battery.display]]
+threshold = 75
+charging_symbol = "󱐋  "
+discharging_symbol = " "
+
+[[battery.display]]
+threshold = 50
+charging_symbol = "󱐋  "
+discharging_symbol = " "
+
+[[battery.display]]
+threshold = 25
+charging_symbol = "󱐋  "
+discharging_symbol = "  $percent"
