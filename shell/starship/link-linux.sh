@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f $HOME/.config/starship.toml ]; then
+if [ -L $HOME/.config/starship.toml ]; then
     rm $HOME/.config/starship.toml
 fi
 
