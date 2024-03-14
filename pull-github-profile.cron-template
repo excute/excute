@@ -1,1 +1,1 @@
-*/5 * * * * ${USER} git -C ${REPO_MAIN_DIR} pull >> ${REPO_DIR}/cron-pull.log 2>&1
+*/5 * * * * ${USER} git -C ${REPO_MAIN_DIR} pull > ${REPO_DIR}/cron-pull.log 2>&1
