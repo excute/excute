@@ -55,7 +55,10 @@ source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 # Repo
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+## brew
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 
 # Starship
