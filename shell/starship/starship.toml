@@ -89,6 +89,7 @@ disabled = false
 [os.symbols]
 Windows = " "
 Ubuntu = " "
+Raspbian = " "
 
 
 # shell
