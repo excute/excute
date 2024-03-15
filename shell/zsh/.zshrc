@@ -69,12 +69,13 @@ fi
 
 # Tools
 ## eza
+EZA_TIME_STYLE_OPTION="--time-style long-iso"
 if type eza &>/dev/null; then
-    alias ls="eza"
-    alias ll="eza -l"
-    alias la="eza -la"
-    alias lt="eza -T -L 3"
-    alias tree="eza -T"
+    alias ls="eza ${EZA_TIME_STYLE_OPTION}"
+    alias ll="eza -l ${EZA_TIME_STYLE_OPTION}"
+    alias la="eza -la ${EZA_TIME_STYLE_OPTION}"
+    alias lt="eza -T -L 3 ${EZA_TIME_STYLE_OPTION}"
+    alias tree="eza -T ${EZA_TIME_STYLE_OPTION}"
 fi
 
 ## direnv
