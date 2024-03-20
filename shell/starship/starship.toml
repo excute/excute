@@ -157,8 +157,8 @@ format = "$symbol$branch(:$remote_branch)"
 [git_status]
 disabled = false
 conflicted = "\\[= $count\\]"
-ahead = "\\[󰞘 $count\\]"
-behind = "\\[󰞗 $count\\]"
+ahead = "\\[ $count\\]"
+behind = "\\[ $count\\]"
 diverged = "\\[$behind_count 󰞗 󰞘 $ahead_count\\]"
 up_to_date = "\\[ \\]"
 untracked = "\\[? $count\\]"
