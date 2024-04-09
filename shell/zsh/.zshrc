@@ -83,8 +83,9 @@ eval "$(direnv hook zsh)"
 
 ## Go
 export PATH=/home/oys/go/bin:$PATH
-export GOROOT_LATEST=/usr/local/go
+export GOROOT_LOCAL=/usr/local/go
 export GOROOT_1_19_13=/home/oys/sdk/go1.19.13
+export GOROOT_1_22_2=/home/oys/sdk/go1.22.2
 
 ## NodeJS
 ### NVM
