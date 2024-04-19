@@ -30,45 +30,28 @@
 # 5: (fg:#a0a9cb bg:#1d2230)
 
 
-# Global format, from Tokyo night
 format = """
-[ $os$shell$sudo](bg:#a3aed2 fg:#090c0c)\
-[](bg:#769ff0 fg:#a3aed2)\
+[ $os ](bg:bright-yellow fg:black)\
+[](bg:bright-black fg:bright-yellow)\
 
-[ $username $hostname ](fg:#e3e5e5 bg:#769ff0)\
-[](fg:#769ff0 bg:#394260)\
+[ $hostname $shell $username $sudo](fg:white bg:bright-black)\
+[](fg:bright-black bg:blue)\
 
-[ $directory](fg:#769ff0 bg:#394260)\
-[](fg:#394260 bg:#212736)\
-
-[( $git_commit)](fg:#769ff0 bg:#212736)\
-[( $git_branch)](fg:#769ff0 bg:#212736)\
-[( $git_status)](fg:#769ff0 bg:#212736)\
-[( $git_metrics)](fg:#769ff0 bg:#212736)\
-[( $git_state)](fg:#769ff0 bg:#212736)\
-[](fg:#212736 bg:#1d2230)\
-
-[( $nodejs)](fg:#a0a9cb bg:#1d2230)\
-[( $rust)](fg:#a0a9cb bg:#1d2230)\
-[( $golang)](fg:#a0a9cb bg:#1d2230)\
-[( $php)](fg:#a0a9cb bg:#1d2230)\
-[](fg:#1d2230)\
+[( ${custom.git_origin})( $git_commit)( $git_branch) $directory](fg:black bg:blue)\
+[](fg:blue)\
 
 $fill\
 
-[](fg:#1d2230)\
-[( $status)](fg:#a0a9cb bg:#1d2230)\
-
-[](fg:#212736 bg:#1d2230)\
-[ $time ](fg:#769ff0 bg:#212736)\
-
-[](fg:#394260 bg:#212736)\
-[ $memory_usage ](fg:#769ff0 bg:#394260)\
-
-[](fg:#769ff0 bg:#394260)\
-[ $battery ](fg:#e3e5e5 bg:#769ff0)\
+[](fg:bright-yellow)\
+[( $nodejs)( $rust)( $golang)( $php) ](fg:black bg:bright-yellow)\
 
 \n$character"""
+
+
+right_format = """
+[($status )($git_state )($git_metrics )($git_status )](fg:foreground)\
+[ $memory_usage $battery $time](fg:foreground)\
+"""
 
 
 # Continuation prompt
@@ -95,15 +78,16 @@ Raspbian = " "
 # shell
 [shell]
 disabled = false
-powershell_indicator = " "
-zsh_indicator = "zsh "
+powershell_indicator = " pwsh"
+zsh_indicator = " zsh"
+bash_indicator = " bash"
 format = "$indicator"
 
 
 # sudo 
 [sudo]
 disabled = false
-symbol = "󰖵 "
+symbol = " "
 format = "$symbol"
 
 
@@ -120,25 +104,57 @@ disabled = false
 ssh_only = false
 ssh_symbol = "󰢩 "
 trim_at = ""
-format = "$ssh_symbol $hostname"
+format = "$hostname$ssh_symbol"
+#  
+
+
+# Ref: https://github.com/starship/starship/discussions/1252#discussioncomment-1165482
+[custom.git_origin]
+when = true
+require_repo = true
+command = """
+GIT_REMOTE=$(command git ls-remote --get-url 2> /dev/null)
+if [[ "$GIT_REMOTE" =~ "github" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "gitlab" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "bitbucket" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "git" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+else
+    GIT_REMOTE_SYMBOL=" "
+fi
+GIT_ORIGIN=$(command basename $GIT_REMOTE 2> /dev/null)
+echo "$GIT_REMOTE_SYMBOL${GIT_ORIGIN%%.*}"
+"""
+format = "$output"
+
+
+# Ref: https://github.com/starship/starship/discussions/1252#discussioncomment-1466449
+[custom.git_origin_pwsh]
 
 
 # Directory
 [directory]
 disabled = false
 truncation_length = 3
-truncate_to_repo = false
+truncate_to_repo = true
 read_only = " "
 read_only_style = "fg: red"
 truncation_symbol = "…/"
-fish_style_pwd_dir_length = 3
-format = " $path [($read_only)]($read_only_style)"
+# fish_style_pwd_dir_length = 4
+format = "$path[( $read_only)]($read_only_style)"
+before_repo_root_style = ""
+repo_root_style = ""
+repo_root_format = "$path"
+#  
 
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
+# [directory.substitutions]
+# "Documents" = "󰈙 "
+# "Downloads" = " "
+# "Music" = " "
+# "Pictures" = " "
 
 
 # Git
@@ -156,19 +172,20 @@ format = "$symbol$branch(:$remote_branch)"
 
 [git_status]
 disabled = false
-conflicted = "\\[= $count\\]"
-ahead = "\\[ $count\\]"
-behind = "\\[ $count\\]"
-diverged = "\\[$behind_count 󰞗 󰞘 $ahead_count\\]"
-up_to_date = "\\[ \\]"
-untracked = "\\[? $count\\]"
-stashed = "\\[ $count\\]"
-modified = "\\[ $count\\]"
-staged = "\\[ $count\\]"
-renamed = "\\[» $count\\]"
-deleted = "\\[ $count\\]"
-typechanged = "\\[ $count\\]"
-format = "$all_status$ahead_behind"
+conflicted = "= $count"
+ahead = " $count"
+behind = " $count"
+diverged = "$behind_count 󰞗 󰞘 $ahead_count"
+up_to_date = " "
+untracked = "? $count"
+stashed = " $count"
+modified = " $count"
+staged = " $count"
+renamed = "» $count"
+deleted = " $count"
+typechanged = " $count"
+# format = "\\[$all_status\\]\\[$ahead_behind\\]"
+format = "$all_status $ahead_behind"
 
 [git_metrics]
 disabled = false
@@ -177,7 +194,6 @@ format = "(+$added)( -$deleted)"
 [git_state]
 disabled = false
 format = "\\([$state( $progress_current/$progress_total)]($style)\\) "
-# format = "hey"
 
 
 # Program specific
