@@ -31,6 +31,7 @@
 
 
 format = """
+\n\
 [ $os ](bg:bright-yellow fg:black)\
 [](bg:bright-black fg:bright-yellow)\
 
@@ -45,7 +46,7 @@ $fill\
 [](fg:bright-yellow)\
 [( $nodejs)( $rust)( $golang)( $php) ](fg:black bg:bright-yellow)\
 
-\n$character"""
+\n$character\n"""
 
 
 right_format = """
