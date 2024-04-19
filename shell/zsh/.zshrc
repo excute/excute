@@ -75,6 +75,7 @@ if type eza &>/dev/null; then
     alias ll="eza -l ${EZA_TIME_STYLE_OPTION}"
     alias la="eza -la ${EZA_TIME_STYLE_OPTION}"
     alias lt="eza -T -L 3 ${EZA_TIME_STYLE_OPTION}"
+    alias ltl="eza -Tl ${EZA_TIME_STYLE_OPTION}"
     alias tree="eza -T ${EZA_TIME_STYLE_OPTION}"
 fi
 
