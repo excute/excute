@@ -1,0 +1,236 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+version: 2
+
+final_space: true
+# pwd: osc99
+# terminal_background: ""
+# accent_color: ""
+shell_integration: true
+# disable_cursor_positioning: false
+patch_pwsh_bleed: true
+
+# var:
+#   ExecutionTime: init
+
+# tooltips: []
+# type: golang
+# type: kubectl
+# type: node
+# type: npm
+
+transient_prompt:
+  # filler: ""
+  # filler: "─"
+  foreground: darkGray
+  template: "\n  {{ .Segments.ExecutionTime.FormattedMs }}\n\n<black,lightYellow>  {{ now | date \"15:04:05\" }} </><lightYellow></> "
+
+blocks:
+  - type: prompt
+    newline: true
+    alignment: left
+    filler: "─"
+    # overflow: ""
+
+    segments:
+      - type: executiontime
+        alias: ExecutionTime
+        style: plain
+        foreground: blue
+        template: "  {{ .FormattedMs }}\n\n"
+        properties:
+          always_enabled: true
+          threshold: 500
+          style: austin
+
+      - type: os
+        style: plain
+        foreground: black
+        background: lightYellow
+        template: " {{ .Icon }} "
+        properties:
+          macos: 
+          linux: 
+          windows: 
+          display_distro_name: false
+          alpine: 
+          aosc: 
+          arch: 
+          centos: 
+          coreos: 
+          debian: 
+          devuan: 
+          raspbian: 
+          elementary: 
+          fedora: 
+          gentoo: 
+          mageia: 
+          manjaro: 
+          mint: 
+          nixos: 
+          opensuse: 
+          redhat: 
+          sabayon: 
+          slackware: 
+          ubuntu: 
+          rocky: 
+          alma: 
+          android: 
+
+      - type: shell
+        style: diamond
+        powerline_symbol: 
+        foreground: black
+        background: lightYellow
+        template: '{{ if (eq .Name "pwsh")}} {{ else if (eq .Name "bash") }} {{ else if (eq .Name "zsh") }}󰬡 {{ else }}.Name {{ end }}'
+
+      - type: session
+        style: powerline
+        powerline_symbol: 
+        foreground: white
+        background: darkGray
+        template: "{{ if .SSHSession }} \U000F06F3 {{ end }}  {{ .HostName }}  {{ .UserName }}{{ if .Root }}  {{ end }} "
+
+      - type: git
+        alias: Git
+        style: diamond
+        powerline_symbol: ""
+        background: blue
+        foreground: black
+        template: "{{ url (cat .UpstreamIcon (base .UpstreamURL)) .UpstreamURL }}"
+        # template: ' {{ url (cat .UpstreamIcon (base .UpstreamURL)) .UpstreamURL }}/{{ $dirs := split ".git" .Dir }}{{ $git_worktree := replace "worktrees" "" $dirs._1 | trimAll "/"  }}{{ $git_worktree }} '
+        # {{ $git_main_abs_path := trimAll "/" $dirs._0 }}
+        properties:
+          fetch_status: true
+          fetch_stash_count: true
+          fetch_worktree_count: false
+          fetch_upstream_icon: true
+          fetch_bare_info: false
+          branch_icon: " "
+          branch_identical_icon: "≡ "
+          branch_ahead_icon: "↑ "
+          branch_behind_icon: "↓ "
+          branch_gone_icon: "≢ "
+          commit_icon: " "
+          tag_icon: " "
+          rebase_icon: " "
+          cherry_pick_icon: " "
+          revert_icon: " "
+          merge_icon: " "
+          no_commits_icon: " "
+          github_icon: " "
+          gitlab_icon: " "
+          bitbucket_icon: " "
+          azure_devops_icon: " "
+          codecommit_icon: " "
+          git_icon: " "
+          branch_max_length: 0
+          fetch_user: true
+
+      # - type: text
+      #   style: diamond
+      #   background: blue
+      #   foreground: black
+      #   template: "{{ if .Segments.Git.IsWorkTree }} {{ .Segments.Git.Dir }} {{end}}"
+
+      - type: path
+        alias: Path
+        style: powerline
+        powerline_symbol: 
+        background: blue
+        foreground: black
+        template: " {{ .Path }} "
+        properties:
+          style: powerlevel
+          folder_separator_icon: /
+          # folder_separator_template:
+          home_icon: "~"
+          folder_icon: " "
+          windows_registry_icon: 
+          # max_depth: 3
+          max_width: 50
+          mapped_locations_enabled: true
+          # mixed_threshold: 4
+          hide_root_location: false
+          cycle_folder_separator: false
+          # folder_format: "<r>%s</r>"
+          # gitdir_format: "%sT"
+
+  - type: prompt
+    newline: true
+    alignment: left
+    segments:
+      - type: text
+        style: plain
+        template: "❯"
+        interactive: false
+        foreground: green
+        foreground_templates:
+          - "{{ if .Code }}red{{ end }}"
+
+  # - type: rprompt
+  #   newline: false
+  #   alignment: right
+  #   filter: ""
+  #   overflow: hide
+  #   segments:
+  #     - type: executiontime
+  #       style: plain
+  #       foreground: darkGray
+
+secondary_prompt:
+  foreground: blue
+  template: "  "
+# type: git
+
+# type: execution_time
+# type: status code
+# type: system info
+
+# type: upgrade
+# type: battery
+# type: time
+
+# - type: prompt
+#   newline: false
+#   alignment: left
+#   filter: ""
+#   overflow: hide
+
+#   segments:
+#   - type: path
+#     style: powerline
+#     powerline_symbol: ""
+#     foreground: "#ffffff"
+#     background: "#61AFEF"
+#     properties:
+#       style: folder
+
+# - type: prompt
+#   newline: false
+#   alignment: left
+#   filter: ""
+#   overflow: ""
+#   segments:
+#   - type: ""
+#     style: ""
+#     powerline_symbol: ""
+#     invert_powerline:
+#     leading_diamond: ""
+#     trailing_diamond: ""
+#     foreground: "#fff"
+#     foreground_templates:
+#     - ""
+#     background: ""
+#     background_templates:
+#     - ""
+#     template: ""
+#     templates:
+#     - ""
+#     templates_logic: ""
+#     interactive: false
+#     alias: ""
+#     min_width: 1
+#     max_width: 1
+#     properties:
+#       always_enabled: false
+
